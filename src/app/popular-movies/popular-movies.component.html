@@ -1,0 +1,13 @@
+<div  *ngIf="popularMovieJson.length != 0" class="container">
+    <h3 *ngIf="!similarList">Most popular movies</h3>
+    <h3 *ngIf="similarList">Similar movies</h3>
+    <div class="wrapper">
+        <ul class="magicContainer" infiniteScroll [horizontal]="true"
+            [infiniteScrollDistance]="1" [infiniteScrollThrottle]="150" [scrollWindow]="false" (scrolled)="onScroll()">
+            <li *ngFor="let m of popularMovieJson" routerLink="/movie/{{m.id}}/0" class="card">
+                <p *ngIf="m.poster_path">{{m.title}}</p>
+                <img *ngIf="m.poster_path" src="https://image.tmdb.org/t/p/w500/{{m.poster_path}}" alt="">
+            </li>
+        </ul>
+    </div>
+</div>

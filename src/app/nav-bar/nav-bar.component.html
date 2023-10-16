@@ -1,0 +1,38 @@
+<nav id="menu">
+  <img *ngIf="!nascondiMenu || windowWidth <= 950" class="logoLabTv" routerLink="/home" src="../../assets/img/logo-tipo.png" alt="">
+  <img *ngIf="nascondiMenu && windowWidth > 950" class="logoLabTv" routerLink="/home" src="../../assets/img/logo.png" alt="">
+  <input type="checkbox" [(ngModel)]="nascondiMenu" id="nascondiMenu">
+  <label for="nascondiMenu">
+    <p>Menu</p>
+  </label>
+  <ul>
+    <li id="homeScreen" routerLink="/home">
+      <p>Home</p>
+    </li>
+    <li id="catScreen" routerLink="/collection">
+      <p>Collection</p>
+    </li>
+    <li id="login" routerLink="/login" *ngIf="!loggedIn">
+      <p>Login</p>
+    </li>
+    <li id="logout" *ngIf="loggedIn" routerLink="/login">
+      <p>Logout</p>
+    </li>
+  </ul>
+  <ul id="social">
+    <li id="youtube" routerLink="">
+      <p>YouTube</p>
+    </li>
+    <li id="instagram" routerLink="">
+      <p>Instagram</p>
+    </li>
+    <li id="facebook" routerLink="">
+      <p>Facebook</p>
+    </li>
+  </ul>
+
+</nav>
+<form (ngSubmit)="searchSubmit()" id="searchBar">
+  <input type="text" id="search" placeholder="Search..." [(ngModel)]="search" name="search">
+  <button type="submit" id="searchButton"><br></button>
+</form>

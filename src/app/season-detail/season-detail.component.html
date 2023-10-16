@@ -1,0 +1,9 @@
+<div class="container">
+    <ul class="seasonContainer">
+        <li *ngFor="let e of episodes" class="card">
+            <p>Episode {{e.episode_number}}</p>
+            <img *ngIf="e.still_path" src="https://image.tmdb.org/t/p/w500{{e.still_path}}">
+            <img *ngIf="!e.still_path" class="noImageEp">
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="detailsContainer" [ngSwitch]="mediaType">
+        <div id="title">
+            <h2 *ngSwitchCase="'movie'">{{selectedMovie?.title}} ({{selectedMovie?.release_date | date: 'y' }})
+            </h2>
+
+            <h2 *ngSwitchCase="'tv'">{{selectedTv?.name}} ({{selectedTv?.first_air_date | date: 'y' }})</h2>
+        </div>
+
+        <iframe *ngIf="safeUrl" width="560" height="315" [src]="safeUrl" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+        <div id="images" *ngIf="selectedMovie || selectedTv">
+            <img *ngSwitchCase="'movie'" src="https://image.tmdb.org/t/p/w500{{selectedMovie?.poster_path}}"
+                class="poster">
+            <!-- <div *ngSwitchCase="'movie'"
+                style="background-image: url('https://image.tmdb.org/t/p/w500{{selectedMovie?.backdrop_path}}')"
+                class="background"></div> -->
+
+            <img *ngSwitchCase="'tv'" src="https://image.tmdb.org/t/p/w500{{selectedTv?.poster_path}}" class="poster">
+            <!-- <div *ngSwitchCase="'tv'"
+                style="background-image: url('https://image.tmdb.org/t/p/w500{{selectedMovie?.backdrop_path}}')"
+                class="background"></div> -->
+        </div>
+
+        <div id="purchase"><button (click)="purchase()" [disabled]="purchased"><p *ngIf="loggedIn">{{purchased ? 'Purchased' : 'Purchase'}}</p><p *ngIf="!loggedIn">Log in</p></button></div>
+
+        <div id="details">
+            <section id="movie" *ngSwitchCase="'movie'">
+                <p>{{selectedMovie?.release_date}} • <span *ngFor="let g of selectedGenres; let l=last">{{g.name}}<span
+                            *ngIf="!l">, </span></span> • {{selectedMovie?.runtime}} min</p>
+                <p>Rating :&nbsp;<img *ngFor="let s of voteAverage" src="../../assets/img/icons8-stella-16.png">&nbsp;({{selectedMovie?.vote_count}})</p>
+                <b>Overview</b>
+                <p>{{selectedMovie?.overview}}</p>
+                <p>Cast :&nbsp;<span *ngFor="let c of movieCast?.slice(0,6); let l=last">{{c.name}}<span *ngIf="!l"> ,
+                        </span></span>
+                </p>
+            </section>
+
+            <section id="tv" *ngSwitchCase="'tv'">
+                <p><span *ngFor="let g of selectedGenres; let l=last">{{g.name}}<span *ngIf="!l">, </span></span><span
+                        *ngIf="selectedTv && selectedTv!.episode_run_time.length > 0"> • {{selectedTv.episode_run_time}}
+                        min</span></p>
+                <p>Rating :&nbsp;<img *ngFor="let s of voteAverage" src="../../assets/img/icons8-stella-16.png">&nbsp;({{selectedTv?.vote_count}})</p>
+                <b>Overview</b>
+                <p>{{selectedTv?.overview}}</p>
+                <p>Cast :&nbsp;<span *ngFor="let c of tvCast?.slice(0,6); let l=last">{{c.name}}<span *ngIf="!l"> ,
+                        </span></span>
+                </p>
+            </section>
+
+            <section id="commonPart">
+                <p *ngIf="directors.length > 0">Directors :&nbsp;<span
+                        *ngFor="let d of directors.slice(0,2); let l=last">{{d.name}}<span *ngIf="!l"> ,
+                        </span></span></p>
+                <p *ngIf="writers.length > 0">Writers :&nbsp;<span
+                        *ngFor="let w of writers.slice(0,3); let l = last">{{w.name}}<span *ngIf="!l"> ,
+                        </span></span></p>
+                <p *ngIf="producers.length > 0">Produced by :&nbsp;<span
+                        *ngFor="let p of producers.slice(0,2); let l=last">{{p.name}}<span *ngIf="!l"> ,
+                        </span></span></p>
+            </section>
+        </div>
+
+
+
+        <section id="productionCompanies">
+            <ul *ngIf="mediaType == 'movie'">
+                <li *ngFor="let c of selectedMovie?.production_companies?.slice(0,2)" class="productionLogo">
+                    <img class="producerLogo" *ngIf="c.logo_path" src="https://image.tmdb.org/t/p/w500{{c.logo_path}}">
+                </li>
+            </ul>
+            <ul *ngIf="mediaType == 'tv'">
+                <li *ngFor="let c of selectedTv?.production_companies?.slice(0,2)" class="productionLogo">
+                    <img class="producerLogo" *ngIf="c.logo_path" src="https://image.tmdb.org/t/p/w500{{c.logo_path}}">
+                </li>
+            </ul>
+        </section>
+
+    </div>
+
+    <div id="seasons" *ngIf="mediaType == 'tv'">
+        <nav id="seasonNav">
+            <button *ngFor="let s of seasonNumber" routerLink="{{s}}">Season {{s}}</button>
+        </nav>
+        <router-outlet></router-outlet>
+    </div>
+
+
+
+    <app-popular-movies *ngIf="mediaType == 'movie'" [similarList]="true
+    "></app-popular-movies>
+    <app-popular-tv *ngIf="mediaType == 'tv'" [similarList]="true
+    "></app-popular-tv>
+
+</div>

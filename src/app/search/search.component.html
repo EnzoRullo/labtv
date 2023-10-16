@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Results for : "{{searchTitle}}"</h2>
+    <div class="">
+        <ul *ngIf="searchResults" class="searchWrapper">
+            <li *ngFor="let r of searchResults" routerLink="/{{r.media_type}}/{{r.id}}/0" class="cardWrapper">
+                <div class="card">
+                    <p *ngIf="r.poster_path">{{r.title? r.title : r.name}}</p>
+                    <img *ngIf="r.poster_path" src="https://image.tmdb.org/t/p/w500/{{r.poster_path}}" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

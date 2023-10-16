@@ -1,0 +1,16 @@
+<div class="container">
+    <h2>Your collection</h2>
+    <p *ngIf="list.length == 0">Your list is empty...</p>
+    <div class="">
+        <ul *ngIf="list.length > 0" class="searchWrapper">
+            <li *ngFor="let i of list" routerLink="/{{i.mediaType}}/{{i.mediaItem.id}}/0" class="cardWrapper">
+                <div class="card">
+                    <p *ngIf="i.mediaItem.poster_path">{{i.mediaType == "movie" ? getMediaItemAsMovie(i).title :
+                        getMediaItemAsTv(i).name}}</p>
+                    <img *ngIf="i.mediaItem.poster_path"
+                        src="https://image.tmdb.org/t/p/w500/{{i.mediaItem.poster_path}}" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

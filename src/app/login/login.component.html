@@ -1,0 +1,44 @@
+<div id="loginForm" *ngIf="!loggedIn">
+  <h3 *ngIf="registerMode">Sign in</h3>
+  <h3 *ngIf="!registerMode">Log in</h3>
+  <form [formGroup]="registerMode ? formReg : formLogIn" (ngSubmit)="registerMode ? register() : login()">
+
+    <input *ngIf="registerMode" type="text" name="username" placeholder="Username" autocomplete="off" formControlName="username">
+   
+
+    <input type="text" name="email" placeholder="Email" autocomplete="off" formControlName="email">
+   
+
+
+    <input type="password" name="password" placeholder="Password" autocomplete="off" formControlName="password">
+    
+
+
+    <input *ngIf="registerMode" type="password" name="password" placeholder="Confirm your Password" autocomplete="off" formControlName="confirm_password">
+    
+
+
+    <input *ngIf="registerMode" type="checkbox" name="privacy" formControlName="privacy" id="privacy">
+    <label *ngIf="registerMode" for="privacy">Accept privacy policy</label>
+    
+
+
+    <button type="submit" class="logRegBtn"><p *ngIf="!registerMode">Log in</p><p *ngIf="registerMode">Sign in</p></button>
+
+
+  </form>
+  <div><a *ngIf="!registerMode" (click)="enterRegisterMode()">Sign in</a></div>
+  <div><a *ngIf="registerMode" (click)="exitRegisterMode()">Log in</a></div>
+
+  <span>
+    <ul *ngIf="allErrors.length > 0">
+      <li *ngFor="let err of allErrors"> - {{err}}</li>
+    </ul>
+  </span>
+</div>
+
+<div id="logoutForm"  *ngIf="loggedIn">
+  <h3>Are you sure?</h3>
+  <button (click)="logout(true)" class="logRegBtn">Yes</button>
+  <button (click)="logout(false)" class="logRegBtn">No</button>
+</div>

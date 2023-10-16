@@ -1,0 +1,112 @@
+#loginForm,
+#logoutForm {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+
+    width: 300px;
+    margin-top: 100px;
+}
+
+/* #loginForm{
+    display: block;
+} */
+
+#loginForm h3,
+#logoutForm h3 {
+    color: #ea4a2e;
+    font-size: 2em;
+    text-align: center;
+    margin: 0 0 25px;
+}
+
+#loginForm input {
+    width: 100%;
+    font-size: 1em;
+    border: solid 1px #aaa;
+    background-color: #eee;
+    padding: 10px;
+    margin-bottom: 1.5em;
+    border-radius: 5px;
+}
+
+#loginForm ul input.errore {
+    border-color: red !important;
+    background-color: #fff0f0 !important;
+}
+
+#loginForm #privacy {
+    width: auto;
+}
+
+
+
+#loginForm label {
+    cursor: pointer;
+}
+
+#loginForm input:focus {
+    background-color: #fff;
+    border-color: #da0e4e;
+    outline: 0;
+}
+
+.logRegBtn {
+    width: 100%;
+    font-size: 1em;
+    border: none;
+    background-color: rgb(83, 82, 82);
+    border-radius: 5px;
+    padding: 12px;
+    color: #fff;
+    cursor: pointer;
+
+    & p {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.logRegBtn:hover {
+    border-color: none;
+    background-color: #da0e4e;
+}
+
+#loginForm div {
+    margin: 1em auto;
+    max-width: 400px;
+}
+
+#loginForm span ul li {
+    color: red;
+    margin-top: 1em;
+    display: block;
+    font-size: 1em;
+}
+
+#loginForm a {
+    text-decoration: underline;
+    color: #da0e4e;
+    margin-top: 0px;
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+}
+
+#logoutForm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    h3{
+        width: 100%;
+    }
+
+    .logRegBtn{
+        width: 40%;
+    }
+}
